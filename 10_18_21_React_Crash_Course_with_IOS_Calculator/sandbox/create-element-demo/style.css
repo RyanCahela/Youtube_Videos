@@ -1,0 +1,30 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 3rem;
+}
+
+
+div {
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  margin-top: 4rem;
+}
+
+#vanilla-js-root {
+  background-color: lightgreen;
+
+}
+
+#react-with-no-jsx-root {
+  background-color: lightseagreen;
+
+}
+
+#react-with-jsx-root {
+  background-color: lightcoral;
+
+}

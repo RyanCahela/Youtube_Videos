@@ -8,12 +8,45 @@
   <title>Create Element Demo</title>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="vanilla-js-root">Not Rendered</div>
+  <div id="react-with-no-jsx-root">Not Rendered</div>
+  <div id="react-with-jsx-root">Not Rendered</div>
+
   <script>
-    const rootElement = document.getElementById("root");
+    //using Vanilla JS
+    const rootElement = document.getElementById("vanilla-js-root");
+    const paragraphWithVanilla = document.createElement("p"); //like React.createElement; 
+    paragraphWithVanilla.textContent = "Hello Vanilla Javascript";
+    rootElement.textContent = "";
+    rootElement.appendChild(paragraphWithVanilla); //like reactDOM.render();
+  </script>
 
-    const paragraph = document.createElement("P");
 
+
+  <!-- links from https://www.w3schools.com/react/react_getstarted.asp -->
+  <!-- Core react library --> 
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+
+  <!--Connects react to the DOM for browers -->
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  
+  <!--used to convert jsx into React.createElement calls -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    //using react with no jsx
+    //React.createElement(tagname, props, content);
+    const paragraphNoJsx = React.createElement("p", {}, "Hello React with no jsx!");
+
+    ReactDOM.render(paragraphNoJsx, document.getElementById("react-with-no-jsx-root"))
+  </script>
+
+  <script type="module">
+    //using react with jsx
+    const ParagraphWithJsx = () => (
+        <p>Hello React with jsx yaaaay!!!</p>
+      );
+
+    ReactDOM.render(<ParagraphWithJsx />, document.getElementById("react-with-jsx-root"));
   </script>
 </body>
 </html>
