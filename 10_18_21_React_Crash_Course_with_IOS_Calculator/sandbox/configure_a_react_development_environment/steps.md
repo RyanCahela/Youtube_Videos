@@ -50,3 +50,23 @@
 ```json 
 "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
 ```
+
+15. install the eslint VS code extention.
+
+### Configure git
+16. in the root of your project run ``` git init ```.
+17. in the root of your project create a file called ```.gitignore```.
+18. inside the .gitignore file type
+```
+node_modules/
+.DS_Store
+.cache/
+dist/
+.env
+coverage/
+.vscode/
+```
+save .gitignore.
+
+### Install Parcel
+
