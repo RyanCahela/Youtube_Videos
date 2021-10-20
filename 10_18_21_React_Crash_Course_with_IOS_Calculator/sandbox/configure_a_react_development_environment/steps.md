@@ -69,4 +69,37 @@ coverage/
 save .gitignore.
 
 ### Install Parcel
+19. run ```npm install -D parcel``
+20. add the following line to your "scripts" in package.json 
+```json 
+"dev": "parcel src/index.html",
+```
+21. run ```npm install react@17.0.1 react-dom@17.0.1```
+
+
+### Install babel and configure with eslint
+22. create a file in the root of your project called ```.babelrc```.
+23. Inside the .babelrc enter
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic",
+      }
+    ]
+  ]
+}
+```
+24. Run ```npm install -D @babel/core@7.12.16 @babel/preset-react@7.12.13``` to install babel and the preset we just set in the .babelrc
+25. In package.json add 
+```json
+{
+  "browserslist": [
+    "last 2 chrome versions"
+    //for more more info about this go to https://browserslist.dev/?q=bGFzdCAyIHZlcnNpb25z
+  ]
+}
+```
 
