@@ -61,4 +61,137 @@ coverage/
 - place an empty javascript object in it. `{}`.
 - that's it, since we are just going to be using the default prettier settings there is nothing to put in this file but we still need it because we just told prettier that it needs a config file to run in a directory.
 
-- next let's install and configure esLint run the following command `npm install
+- next let's install eslint and some eslint plugins run the following command
+
+```
+npm install eslint eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react
+```
+
+- eslint-plugin-import enables eslint to check your import statements for errors
+- eslint-plugin-jsx-a11y will help you write accesible jsx for screen readers
+- finally eslint-plugin-react gives eslint the ability to understand react syntax.
+
+- now lets create a `.eslintrc.json` file in our root directory to connect everything we just installed.
+
+- inside `.eslintrc.json` add the following.
+
+```json
+{
+  //the order of the "extends" array matters.
+  "extends": [
+    "eslint:recommended", //loads all of the eslint:recommended rules including white space rules.
+    "plugin:import/errors", //https://www.npmjs.com/package/eslint-plugin-import
+    "plugin:react/recommended", //https://www.npmjs.com/package/eslint-plugin-react
+    "plugin:jsx-a11y/recommended", //https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+    "prettier" //turns off the eslint white space rules and other rules it knows how to handle specifically.
+  ],
+  "rules": {
+    "react/prop-types": 0, //turns off props types '0' means turn off
+    "react/react-in-jsx-scope": 0 //turns off requiring to import react in every file
+  },
+  "plugins": ["react", "jsx-a11y", "import"],
+  "parserOptions": {
+    "ecmaVersion": 2021, //use the most modern version.
+    "sourceType": "module", //we will be using ES Modules
+    "ecmaFeatures": {
+      "jsx": true //we will be using JSX
+    }
+  },
+  "env": {
+    //describe the environment this code will run in
+    "es6": true, //eslint won't throw error if we try to use es6 methods like map() or reduce().
+    "browser": true, //eslint won't throw errors if we use fetch() or the window object
+    "node": true //eslint won't throw erroes if we try to access things in a node environement like 'golbal' or 'process'.
+  },
+  "settings": {
+    "react": {
+      "version": "detect" //look at the package.json and figure it out
+    }
+  }
+}
+```
+
+- the extends array is a list of the rules we would like to apply to our project.
+- the order of this array matters so be sure to write it exactly as I have it here.
+- after the extends array add a key called "plugins" this array works hand in hand with the extends array and specifies what plugins we are going to use.
+- think of the plugins array as three restaurant menus and the extends array is us ordering things off of those menus to be used in our project.
+- next we are going to turn off some of the default rules for react projects
+
+- we won't be using React proptypes and the new version of babel doesn't require we import React in every file so we will turn that off too.
+
+```json
+{
+  "rules": {
+    "react/prop-types": 0, //turns off props types '0' means turn off
+    "react/react-in-jsx-scope": 0 //turns off requiring to import react in every file
+  }
+}
+```
+
+- next we need to give eslint some information about our code and the environment it will be running in
+
+```json
+  "parserOptions": {
+    "ecmaVersion": 2021, //use the most modern version.
+    "sourceType": "module", //we will be using ES Modules
+    "ecmaFeatures": {
+      "jsx": true //we will be using JSX
+    }
+  },
+  "env": {
+    //describe the environment this code will run in
+    "es6": true, //eslint won't throw error if we try to use es6 methods like map() or reduce().
+    "browser": true, //eslint won't throw errors if we use fetch() or the window object
+    "node": true //eslint won't throw erroes if we try to access things in a node environement like 'golbal' or 'process'.
+  },
+```
+
+- lastly for eslint we will add a settings key that will tell eslint to refer to the package.json for our version of react.
+
+- after all of this let's finally install react reactDOM
+- run `npm install react react-dom`;
+
+- then lets install parcel `npm install -D parcel`
+
+- we're getting close to the end I promise.
+
+- add the following script to your package.json that points parcel to your project root file
+  `"dev": "parcel src/index.html"`
+
+- because we are using parcel there is no need to configure babel but if you wanted to just install with `npm install -D @babel/core and @babel/preset-react`
+
+- then add a .babelrc file to the root of your project with the following inside
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  ]
+}
+```
+
+- everything should be configured at this point let's create a hello world react project to test everything.
+
+- inside the `src` directory create 3 files index.html index.js and App.js
+- inside index.html just create a div with the id of root and add a script tag pointing to index.js with a type="module" attribute.
+- inside index.js
+
+  - import ReactDOM
+  - import App
+  - attach app to the root element by calling
+    `ReactDOM.render(<App />, document.getElementById("root"));`
+
+- inside our App.js we will create a function called App that reutrn a jsx h1 that says `hello react`
+
+- run `npm run dev` and if there arn't any typos it should open a browser window with you're triumphant message!
+
+- congratulations you've just configured a modern react develeopment environment from scrach.
+
+- if you enjoyed this video please give it a thumbs up and for more content like this hit the subscribe button.
+
+- thanks for watching.
