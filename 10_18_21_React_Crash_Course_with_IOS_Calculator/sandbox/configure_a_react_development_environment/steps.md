@@ -65,6 +65,7 @@ dist/
 .env
 coverage/
 .vscode/
+.parcel-cache
 ```
 save .gitignore.
 
