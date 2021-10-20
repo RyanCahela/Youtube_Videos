@@ -103,3 +103,151 @@ save .gitignore.
 }
 ```
 
+## Configure ESLint to understand React
+26. Out of the box eslint doesn't understand react so we need to add a few configurations to fix that.
+27. run ```npm install -D eslint-plugin-import@2.22.1 eslint-plugin-jsx-a11y@6.4.1 eslint-plugin-react@7.22.0```
+
+28. Add the following to your "extends" array in .eslintrc.json
+```json
+{
+  //the order of the "extends" array matters.
+  "extends": [
+    "eslint:recommended", //loads all of the eslint:recommended rules including white space rules.
+
+    //NEW THING
+    "plugin:import/errors", //https://www.npmjs.com/package/eslint-plugin-import
+    "plugin:react/recommended", //https://www.npmjs.com/package/eslint-plugin-react   
+    "plugin:jsx-a11y/recommended", //https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+    //END NEW THING
+    
+    "prettier" //turns off the eslint white space rules and other rules it knows how to handle specifically.
+  ],
+  "plugins": [], //no plugins for now so leave a blank array.
+  "parserOptions": {
+    "ecmaVersion": 2021, //use the most modern version.
+    "sourceType": "module", //we will be using ES Modules
+    "ecmaFeatures": {
+      "jsx": true, //we will be using JSX
+    }
+  },
+  "env": { //describe the environment this code will run in
+    "es6": true, //eslint won't throw error if we try to use es6 methods like map() or reduce().
+    "browser": true, //eslint won't throw errors if we use fetch() or the window object
+    "node": true, //eslint won't throw erroes if we try to access things in a node environement like 'golbal' or 'process'.
+  }
+}
+```
+
+29. Now we are going to add a "rules" key to our .eslintrc.json to tell eslint what rules we want to turn OFF.
+```json
+{
+  //the order of the "extends" array matters.
+  "extends": [
+    "eslint:recommended", //loads all of the eslint:recommended rules including white space rules.
+    "plugin:import/errors", //https://www.npmjs.com/package/eslint-plugin-import
+    "plugin:react/recommended", //https://www.npmjs.com/package/eslint-plugin-react   
+    "plugin:jsx-a11y/recommended", //https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+    "prettier" //turns off the eslint white space rules and other rules it knows how to handle specifically.
+  ],
+
+  //NEW THING************************************************************
+  "rules": {
+    "react/prop-types": 0, //turns off props types '0' means turn off
+    "react/react-in-jsx-scope": 0 //turns off requiring to import react in every file
+  },
+  //END NEW THING************************************************************
+
+
+  "plugins": [], //no plugins for now so leave a blank array.
+  "parserOptions": {
+    "ecmaVersion": 2021, //use the most modern version.
+    "sourceType": "module", //we will be using ES Modules
+    "ecmaFeatures": {
+      "jsx": true, //we will be using JSX
+    }
+  },
+  "env": { //describe the environment this code will run in
+    "es6": true, //eslint won't throw error if we try to use es6 methods like map() or reduce().
+    "browser": true, //eslint won't throw errors if we use fetch() or the window object
+    "node": true, //eslint won't throw erroes if we try to access things in a node environement like 'golbal' or 'process'.
+  }
+}
+```
+
+30. Now we are going to add a plugins to our .eslintrc.json configuration
+```json
+{
+  //the order of the "extends" array matters.
+  "extends": [
+    "eslint:recommended", //loads all of the eslint:recommended rules including white space rules.
+    "plugin:import/errors", //https://www.npmjs.com/package/eslint-plugin-import
+    "plugin:react/recommended", //https://www.npmjs.com/package/eslint-plugin-react   
+    "plugin:jsx-a11y/recommended", //https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+    "prettier" //turns off the eslint white space rules and other rules it knows how to handle specifically.
+  ],
+  "rules": {
+    "react/prop-types": 0, //turns off props types '0' means turn off
+    "react/react-in-jsx-scope": 0 //turns off requiring to import react in every file
+  },
+
+
+  //NEW THING************************************
+  "plugins": ["react", "jsx-a11y", "import"],
+  //END NEW THING********************************
+
+
+  "parserOptions": {
+    "ecmaVersion": 2021, //use the most modern version.
+    "sourceType": "module", //we will be using ES Modules
+    "ecmaFeatures": {
+      "jsx": true, //we will be using JSX
+    }
+  },
+  "env": { //describe the environment this code will run in
+    "es6": true, //eslint won't throw error if we try to use es6 methods like map() or reduce().
+    "browser": true, //eslint won't throw errors if we use fetch() or the window object
+    "node": true, //eslint won't throw erroes if we try to access things in a node environement like 'golbal' or 'process'.
+  }
+}
+```
+
+31. Lastly, we are going to add a settings key to our .eslintrc.json
+```json
+{
+  //the order of the "extends" array matters.
+  "extends": [
+    "eslint:recommended", //loads all of the eslint:recommended rules including white space rules.
+    "plugin:import/errors", //https://www.npmjs.com/package/eslint-plugin-import
+    "plugin:react/recommended", //https://www.npmjs.com/package/eslint-plugin-react   
+    "plugin:jsx-a11y/recommended", //https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+    "prettier" //turns off the eslint white space rules and other rules it knows how to handle specifically.
+  ],
+  "rules": {
+    "react/prop-types": 0, //turns off props types '0' means turn off
+    "react/react-in-jsx-scope": 0 //turns off requiring to import react in every file
+  },
+  "plugins": ["react", "jsx-a11y", "import"],
+  "parserOptions": {
+    "ecmaVersion": 2021, //use the most modern version.
+    "sourceType": "module", //we will be using ES Modules
+    "ecmaFeatures": {
+      "jsx": true, //we will be using JSX
+    }
+  },
+  "env": { //describe the environment this code will run in
+    "es6": true, //eslint won't throw error if we try to use es6 methods like map() or reduce().
+    "browser": true, //eslint won't throw errors if we use fetch() or the window object
+    "node": true, //eslint won't throw erroes if we try to access things in a node environement like 'golbal' or 'process'.
+  },
+
+  //NEW THING************************************
+  "settings": {
+    "react": {
+      "version": "detect", //look at the package.json and figure it out
+    }
+  }
+  //END NEW THING********************************
+}
+```
+32. everything should work now...hopefully.
+
